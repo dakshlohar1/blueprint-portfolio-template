@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
 import { CircledText } from './CircledText';
+import resumePdf from '../assets/documents/dakshlohar-resume-latest.pdf';
+
 
 export const About: React.FC = () => {
    const [showMicro, setShowMicro] = useState(false);
@@ -83,6 +85,11 @@ export const About: React.FC = () => {
 
             <a href="#contact" className="relative inline-block overflow-hidden px-8 py-3 bg-transparent border-2 border-white text-white font-bold font-mono uppercase tracking-widest hover:bg-white hover:text-blue-900 transition-all group">
                <span className="relative z-10">Let's Talk</span>
+               <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            </a>
+
+            <a href={resumePdf} download="Daksh_Lohar_Resume.pdf" className="relative inline-block overflow-hidden px-8 py-3 bg-transparent border-2 border-white/50 text-white/80 font-bold font-mono uppercase tracking-widest hover:bg-white hover:text-blue-900 transition-all group ml-4">
+               <span className="relative z-10">Download Resume</span>
                <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
             </a>
 
