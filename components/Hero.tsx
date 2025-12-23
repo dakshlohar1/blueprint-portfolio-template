@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { MoveDown, Compass, Smartphone, Monitor } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
-import profileImg from '../assets/images/profile.png';
+import { Compass, MoveDown } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 
 const FloatingParticle: React.FC<{ delay: number }> = ({ delay }) => (
   <motion.div
@@ -43,7 +42,7 @@ const Crosshair = ({ x, y, delay }: { x: string, y: string, delay: number }) => 
   </motion.div>
 );
 
-export const Hero: React.FC = () => {
+export const Hero: React.FC<{ profileImg: any }> = ({ profileImg }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -100,7 +99,7 @@ export const Hero: React.FC = () => {
               fill="none"
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 1.5, ease: "linear", delay: 0.5 }}
+              transition={{ duration: 1.5, ease: "easeInOut", delay: 1.5 }}
             />
             {/* Horizontal Scribble */}
             <motion.path
@@ -110,7 +109,7 @@ export const Hero: React.FC = () => {
               fill="none"
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 2, ease: "easeOut", delay: 0.2 }}
+              transition={{ duration: 1.5, ease: "easeInOut", delay: 1.5 }}
             />
             {/* Vertical Scribble */}
             <motion.path
@@ -120,7 +119,7 @@ export const Hero: React.FC = () => {
               fill="none"
               initial={{ pathLength: 0 }}
               animate={{ pathLength: 1 }}
-              transition={{ duration: 1.8, ease: "easeOut", delay: 0.8 }}
+              transition={{ duration: 1.5, ease: "easeInOut", delay: 1.5 }}
             />
           </mask>
         </defs>
@@ -172,10 +171,12 @@ export const Hero: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.95, filter: 'blur(5px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-            transition={{ duration: 1.2, delay: 0.2 }}
+            transition={{ duration: 1.2, delay: 1.5 }}
             className="w-full h-full relative z-10 overflow-hidden rounded-sm"
             style={{
-              WebkitMaskImage: 'url(#sketch-mask)',
+              WebkitMask: 'url(#sketch-mask)',
+              mask: 'url(#sketch-mask)',
+              WebkitMaskImage: 'url(#sketch-mask)', // Fallback
               maskImage: 'url(#sketch-mask)'
             }}
           >
@@ -275,9 +276,6 @@ export const Hero: React.FC = () => {
           transition={{ duration: 1, delay: 2 }}
           className="hidden md:flex gap-4"
         >
-          <a href="#contact" className="px-6 py-3 border border-white/30 hover:bg-white hover:text-blue-900 transition-colors duration-300 font-mono text-sm uppercase tracking-widest">
-            Get In Touch
-          </a>
           <a href="#projects" className="px-6 py-3 bg-white/5 hover:bg-white/10 transition-colors duration-300 font-mono text-sm uppercase tracking-widest flex items-center gap-2 group">
             View Work
             <MoveDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
