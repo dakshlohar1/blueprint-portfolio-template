@@ -6,6 +6,7 @@ export interface Project {
   description: string;
   technologies?: string[];
   imageUrl?: string;
+  liveUrl?: string;
 }
 
 export interface Skill {

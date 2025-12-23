@@ -1,77 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blueprint Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Chakra+Petch:wght@300;400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              blueprint: {
-                bg: '#004ecb', // Classic blueprint blue
-                dark: '#003399',
-                grid: '#3b82f6', // Grid lines
-                text: '#ffffff',
-                ink: '#e2e8f0',
-              }
-            },
-            fontFamily: {
-              mono: ['"Space Mono"', 'monospace'],
-              display: ['"Chakra Petch"', 'sans-serif'],
-              hand: ['"Caveat"', 'cursive'],
-            },
-            backgroundImage: {
-              'blueprint-grid': "linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px)",
-              'blueprint-grid-lg': "linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px)",
-            },
-            boxShadow: {
-              'blueprint': '4px 4px 0px rgba(255, 255, 255, 0.2)',
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daksh Lohar | Software Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Chakra+Petch:wght@300;400;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            blueprint: {
+              bg: '#004ecb', // Classic blueprint blue
+              dark: '#003399',
+              grid: '#3b82f6', // Grid lines
+              text: '#ffffff',
+              ink: '#e2e8f0',
             }
+          },
+          fontFamily: {
+            mono: ['"Space Mono"', 'monospace'],
+            display: ['"Chakra Petch"', 'sans-serif'],
+            hand: ['"Caveat"', 'cursive'],
+          },
+          backgroundImage: {
+            'blueprint-grid': "linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px)",
+            'blueprint-grid-lg': "linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px)",
+          },
+          boxShadow: {
+            'blueprint': '4px 4px 0px rgba(255, 255, 255, 0.2)',
           }
         }
       }
-    </script>
-    <style>
-      html {
-        scroll-behavior: smooth;
-        scroll-snap-type: y mandatory;
-      }
-      body {
-        margin: 0;
-        background-color: #004ecb; /* Fallback */
-        color: white;
-      }
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #003399;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #3b82f6;
-        border: 1px solid white;
-      }
-      
-      /* Hide default cursor to allow custom cursor */
-      body {
-        cursor: none;
-      }
-      /* Ensure links and buttons also hide cursor as they might enforce their own */
-      a, button, input, textarea, select {
-        cursor: none;
-      }
-      /* Restore cursor for the scrollbar and fallback */
-      html {
-        cursor: auto;
-      }
-    </style>
+    }
+  </script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y mandatory;
+    }
+
+    body {
+      margin: 0;
+      background-color: #004ecb;
+      /* Fallback */
+      color: white;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #003399;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3b82f6;
+      border: 1px solid white;
+    }
+
+    /* Hide default cursor to allow custom cursor */
+    body {
+      cursor: none;
+    }
+
+    /* Ensure links and buttons also hide cursor as they might enforce their own */
+    a,
+    button,
+    input,
+    textarea,
+    select {
+      cursor: none;
+    }
+
+    /* Restore cursor for the scrollbar and fallback */
+    html {
+      cursor: auto;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -83,10 +97,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
-  </body>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+
 </html>
