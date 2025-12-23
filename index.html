@@ -60,8 +60,16 @@
       }
       
       /* Hide default cursor to allow custom cursor */
-      *, *::before, *::after {
-        cursor: none !important;
+      body {
+        cursor: none;
+      }
+      /* Ensure links and buttons also hide cursor as they might enforce their own */
+      a, button, input, textarea, select {
+        cursor: none;
+      }
+      /* Restore cursor for the scrollbar and fallback */
+      html {
+        cursor: auto;
       }
     </style>
   <script type="importmap">
