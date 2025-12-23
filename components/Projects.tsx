@@ -316,9 +316,16 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
                     </div>
 
                     <div className="mt-auto pt-8 flex gap-4">
-                        <button className="flex-1 bg-blue-900 text-white py-3 font-display uppercase tracking-widest text-sm hover:bg-blue-800 transition-colors shadow-lg flex items-center justify-center gap-2">
-                            View Deployment <ExternalLink className="w-4 h-4" />
-                        </button>
+                        {project.liveUrl && (
+                            <a
+                                href={project.liveUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex-1 bg-blue-900 text-white py-3 font-display uppercase tracking-widest text-sm hover:bg-blue-800 transition-colors shadow-lg flex items-center justify-center gap-2"
+                            >
+                                View Deployment <ExternalLink className="w-4 h-4" />
+                            </a>
+                        )}
                     </div>
                 </div>
             </motion.div>
