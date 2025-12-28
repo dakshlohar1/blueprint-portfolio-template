@@ -1,6 +1,8 @@
 import { motion, Variants } from 'framer-motion';
 import { Compass, MoveDown } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import resumePdf from '../assets/documents/resume.pdf';
+
 
 const FloatingParticle: React.FC<{ delay: number }> = ({ delay }) => (
   <motion.div
@@ -216,21 +218,6 @@ export const Hero: React.FC<{ profileImg: any }> = ({ profileImg }) => {
           </svg>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mb-6 flex items-center gap-3"
-        >
-          <div className="h-[1px] w-12 bg-cyan-300/50"></div>
-          <span className="font-mono text-cyan-300 text-sm tracking-[0.2em] uppercase">
-            Technical Portfolio
-          </span>
-          <div className="px-2 py-0.5 border border-cyan-300/30 rounded text-[10px] text-cyan-300 font-mono">
-            v1.0.4 - STABLE
-          </div>
-        </motion.div>
-
         <motion.h1
           variants={containerVariants}
           initial="hidden"
@@ -276,10 +263,17 @@ export const Hero: React.FC<{ profileImg: any }> = ({ profileImg }) => {
           transition={{ duration: 1, delay: 2 }}
           className="hidden md:flex gap-4"
         >
+
           <a href="#projects" className="px-6 py-3 bg-white/5 hover:bg-white/10 transition-colors duration-300 font-mono text-sm uppercase tracking-widest flex items-center gap-2 group">
             View Work
             <MoveDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
           </a>
+          <a href={resumePdf} download="Daksh_Lohar_Resume.pdf" className="relative inline-block overflow-hidden px-8 py-3 bg-transparent border-2 border-white/50 text-white/80 font-bold font-mono uppercase tracking-widest hover:bg-white hover:text-blue-900 transition-all group ml-4">
+            <span className="relative z-10">Download Resume</span>
+            <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+          </a>
+
+
         </motion.div>
       </div>
 

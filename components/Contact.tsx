@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { Send, Settings, Github, Linkedin, Mail } from 'lucide-react';
-import resumePdf from '../assets/documents/resume.pdf';
 
 export const Contact: React.FC = () => {
    const [sent, setSent] = useState(false);
@@ -43,33 +42,6 @@ export const Contact: React.FC = () => {
             <p className="mb-8 text-blue-200">I'm always curious to learn about new challenges.</p>
 
 
-
-            <a href={resumePdf} download="Daksh_Lohar_Resume.pdf" className="relative inline-block overflow-hidden px-8 py-3 bg-transparent border-2 border-white/50 text-white/80 font-bold font-mono uppercase tracking-widest hover:bg-white hover:text-blue-900 transition-all group ml-4">
-               <span className="relative z-10">Download Resume</span>
-               <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            </a>
-
-            <div className="flex justify-center gap-6 mt-12">
-               {[
-                  { Icon: Github, href: "https://github.com/dakshlohar1", label: "GitHub" },
-                  { Icon: Linkedin, href: "https://www.linkedin.com/in/daksh-lohar-7001a31b6", label: "LinkedIn" },
-                  { Icon: Mail, href: "mailto:dakshlohar4@outlook.com", label: "Email" }
-               ].map(({ Icon, href, label }) => (
-                  <a
-                     key={label}
-                     href={href}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className="p-3 border border-white/30 rounded-full hover:bg-white hover:text-blue-900 hover:border-white transition-all duration-300 group relative"
-                     aria-label={label}
-                  >
-                     <Icon className="w-5 h-5" />
-                     <span className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs font-mono bg-white text-blue-900 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                        {label}
-                     </span>
-                  </a>
-               ))}
-            </div>
          </div>
          <div className="max-w-xl mx-auto">
             <div className="text-center mb-12 border-b border-double border-white/30 pb-4">
@@ -141,7 +113,7 @@ export const Contact: React.FC = () => {
 
                      {/* Button actual */}
                      <div className="relative z-10 border-2 border-white bg-blueprint-bg px-8 py-3 font-display font-bold text-lg uppercase tracking-wider shadow-blueprint active:translate-y-1 active:shadow-none transition-all flex items-center gap-2">
-                        <span>{sent ? 'Sent!' : sending ? 'Sending...' : 'Send Transmission'}</span>
+                        <span>{sent ? 'Sent!' : sending ? 'Sending...' : 'Send'}</span>
                         {!sent && !sending && <Send className="w-4 h-4" />}
                      </div>
                   </button>
@@ -157,9 +129,7 @@ export const Contact: React.FC = () => {
                </div>
             )}
 
-            <div className="text-center mt-20 font-serif italic text-white/40">
-               You can come back anytime.
-            </div>
+
          </div>
       </div>
 

@@ -22,6 +22,9 @@ export const About: React.FC = () => {
 
          <div className="space-y-16">
             <div className="group relative pl-8 border-l border-dashed border-white/30 hover:border-white transition-colors">
+               <div className="absolute -left-3 top-0 bg-blueprint-bg p-1 border border-white">
+                  <svg className="w-4 h-4 stroke-white" viewBox="0 0 24 24" fill="none" strokeWidth="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+               </div>
                <h3 className="text-2xl font-bold font-display mb-4 flex items-center gap-3">
                   Full Stack & AI Focused
                </h3>
