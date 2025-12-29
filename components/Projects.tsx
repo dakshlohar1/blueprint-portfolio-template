@@ -3,6 +3,7 @@ import { PROJECTS } from '../constants';
 import { Project } from '../types';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, ExternalLink, Cpu, Code2, Layers, Database, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
 
 const schematicVariants = {
     hidden: { opacity: 0 },
@@ -141,6 +142,7 @@ const SchematicData: React.FC = () => (
 );
 
 const ProjectCard: React.FC<{ project: Project; onSelect: (p: Project) => void }> = ({ project, onSelect }) => {
+    const { colors } = useTheme();
     let Visual = SchematicWeb;
     if (project.type === 'mobile') Visual = SchematicMobile;
     if (project.type === 'backend') Visual = SchematicBackend;
@@ -190,10 +192,10 @@ const ProjectCard: React.FC<{ project: Project; onSelect: (p: Project) => void }
                 <div className="p-6 flex-1 flex flex-col gap-4">
                     <div>
                         <div className="flex justify-between items-start mb-2">
-                            <h3 className="text-xl font-display font-bold uppercase tracking-wide group-hover:text-cyan-200 transition-colors">{project.title}</h3>
+                            <h3 className="text-xl font-display font-bold uppercase tracking-wide group-hover:transition-colors" style={{ color: 'white' }}>{project.title}</h3>
                             <span className="text-[10px] font-mono border border-white/30 px-1 rounded">{project.type.toUpperCase()}</span>
                         </div>
-                        <p className="text-cyan-200 text-sm font-mono mb-4">{project.subtitle}</p>
+                        <p className="text-sm font-mono mb-4" style={{ color: colors.textPrimary }}>{project.subtitle}</p>
                         <p className="text-white/80 text-sm leading-relaxed font-light font-sans line-clamp-3">{project.description}</p>
                     </div>
 
@@ -211,6 +213,8 @@ const ProjectCard: React.FC<{ project: Project; onSelect: (p: Project) => void }
 };
 
 const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ project, onClose }) => {
+    const { colors } = useTheme();
+
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
@@ -232,7 +236,8 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={onClose}
-                className="absolute inset-0 bg-blue-950/80 backdrop-blur-sm"
+                className="absolute inset-0 backdrop-blur-sm"
+                style={{ backgroundColor: `${colors.dark}cc` }}
             />
 
             <motion.div
@@ -240,8 +245,9 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.95, opacity: 0, y: 20 }}
                 transition={{ type: "spring", duration: 0.5, bounce: 0.3 }}
-                className="relative w-full max-w-4xl bg-[#f0f4f8] text-blue-900 rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
+                className="relative w-full max-w-4xl rounded-sm shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh]"
                 style={{
+                    backgroundColor: '#f0f4f8',
                     backgroundImage: 'linear-gradient(#e5e9f0 1px, transparent 1px), linear-gradient(90deg, #e5e9f0 1px, transparent 1px)',
                     backgroundSize: '20px 20px',
                     boxShadow: '0 0 0 1px rgba(0,0,0,0.1), 0 20px 50px -10px rgba(0,0,0,0.5)'
@@ -250,21 +256,29 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
                 {/* Paper Texture Overlay */}
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cardboard-flat.png')] opacity-40 pointer-events-none" />
 
-                {/* Close Button */}
+                {/* Close Button - Now uses theme colors */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 z-20 p-2 border border-blue-900/20 hover:bg-blue-900 hover:text-white transition-colors rounded-full"
+                    className="absolute top-4 right-4 z-20 p-2 border hover:scale-110 transition-all rounded-full"
+                    style={{
+                        borderColor: `${colors.grid}40`,
+                        backgroundColor: colors.bg,
+                        color: 'white'
+                    }}
                 >
                     <X className="w-5 h-5" />
                 </button>
 
-                {/* Header Strip / Tape */}
-                <div className="absolute top-6 left-1/2 -translate-x-1/2 w-32 h-8 bg-yellow-100/90 rotate-1 shadow-sm border border-yellow-200/50 flex items-center justify-center font-hand text-blue-800 z-20">
-                    CONFIDENTIAL
-                </div>
-
                 {/* Left Side: Image / Visuals */}
                 <div className="w-full md:w-5/12 h-64 md:h-auto bg-blue-100/50 relative border-b md:border-b-0 md:border-r border-blue-900/10 p-6 flex items-center justify-center overflow-hidden">
+                    {/* CONFIDENTIAL Tape on Image */}
+                    <div
+                        className="absolute top-8 left-[90%] -translate-x-1/2 w-32 h-8 bg-yellow-100/90 shadow-sm border border-yellow-200/50 flex items-center justify-center font-hand text-blue-800 z-20"
+                        style={{ transform: 'translateX(-50%) rotate(30deg)' }}
+                    >
+                        CONFIDENTIAL
+                    </div>
+
                     {project.imageUrl ? (
                         <div className="relative w-full h-full shadow-[0_0_15px_rgba(0,0,0,0.1)] rotate-2 border-4 border-white transform transition-transform hover:rotate-0 hover:scale-105 duration-500">
                             <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
@@ -285,28 +299,35 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
 
                 {/* Right Side: Content */}
                 <div className="w-full md:w-7/12 p-8 md:p-10 flex flex-col overflow-y-auto relative z-10">
-                    <div className="mb-2 flex items-center gap-2 text-blue-500/80 font-mono text-xs uppercase tracking-widest">
+                    <div className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-widest" style={{ color: `${colors.grid}cc` }}>
                         <TypeIcon className="w-4 h-4" />
                         <span>Project Spec Sheet</span>
                     </div>
 
-                    <h2 className="text-4xl font-display font-bold text-blue-900 mb-2">{project.title}</h2>
-                    <h3 className="text-lg font-mono text-blue-600 mb-6 pb-4 border-b border-blue-900/10">{project.subtitle}</h3>
+                    <h2 className="text-4xl font-display font-bold mb-2" style={{ color: colors.dark }}>{project.title}</h2>
+                    <h3 className="text-lg font-mono mb-6 pb-4 border-b" style={{ color: colors.grid, borderColor: `${colors.dark}1a` }}>{project.subtitle}</h3>
 
                     <div className="space-y-6">
                         <div>
-                            <h4 className="font-bold text-sm uppercase tracking-wide text-blue-900/60 mb-2">Technical Description</h4>
-                            <p className="font-serif text-lg leading-relaxed text-blue-900/80">
+                            <h4 className="font-bold text-sm uppercase tracking-wide mb-2" style={{ color: `${colors.dark}99` }}>Technical Description</h4>
+                            <p className="font-serif text-lg leading-relaxed" style={{ color: `${colors.dark}cc` }}>
                                 {project.description}
                             </p>
                         </div>
 
                         {project.technologies && (
                             <div>
-                                <h4 className="font-bold text-sm uppercase tracking-wide text-blue-900/60 mb-3">Tech Stack</h4>
+                                <h4 className="font-bold text-sm uppercase tracking-wide mb-3" style={{ color: `${colors.dark}99` }}>Tech Stack</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {project.technologies.map(tech => (
-                                        <span key={tech} className="px-3 py-1 bg-white border border-blue-900/10 rounded-full text-xs font-mono text-blue-700 shadow-sm">
+                                        <span
+                                            key={tech}
+                                            className="px-3 py-1 bg-white border rounded-full text-xs font-mono shadow-sm"
+                                            style={{
+                                                borderColor: `${colors.dark}1a`,
+                                                color: colors.dark
+                                            }}
+                                        >
                                             {tech}
                                         </span>
                                     ))}
@@ -321,7 +342,16 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
                                 href={project.liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex-1 bg-blue-900 text-white py-3 font-display uppercase tracking-widest text-sm hover:bg-blue-800 transition-colors shadow-lg flex items-center justify-center gap-2"
+                                className="flex-1 text-white py-3 font-display uppercase tracking-widest text-sm transition-colors shadow-lg flex items-center justify-center gap-2"
+                                style={{
+                                    backgroundColor: colors.dark
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = colors.bg;
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = colors.dark;
+                                }}
                             >
                                 View Deployment <ExternalLink className="w-4 h-4" />
                             </a>
@@ -333,8 +363,13 @@ const ProjectModal: React.FC<{ project: Project; onClose: () => void }> = ({ pro
     );
 };
 
-export const Projects: React.FC = () => {
-    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+interface ProjectsProps {
+    selectedProject: Project | null;
+    setSelectedProject: (project: Project | null) => void;
+}
+
+export const Projects: React.FC<ProjectsProps> = ({ selectedProject, setSelectedProject }) => {
+    const { colors } = useTheme();
 
     const scrollContainerRef = React.useRef<HTMLDivElement>(null);
 
@@ -353,7 +388,7 @@ export const Projects: React.FC = () => {
                     Code with Intent, <br />
                     Design with Soul.
                 </h2>
-                <p className="text-blue-200/70 max-w-xl mx-auto font-mono text-sm border-t border-b border-white/10 py-4">
+                <p className="max-w-xl mx-auto font-mono text-sm border-t border-b border-white/10 py-4" style={{ color: colors.textSecondary }}>
                     A curated selection of projects blending design and engineering.
                     Scroll to explore my work where logic meets aesthetic.
                 </p>

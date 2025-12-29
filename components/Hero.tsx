@@ -2,6 +2,8 @@ import { motion, Variants } from 'framer-motion';
 import { Compass, MoveDown } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import resumePdf from '../assets/documents/resume.pdf';
+import { useTheme } from '../contexts/ThemeContext';
+
 
 
 const FloatingParticle: React.FC<{ delay: number }> = ({ delay }) => (
@@ -19,8 +21,8 @@ const FloatingParticle: React.FC<{ delay: number }> = ({ delay }) => (
     }}
     className="absolute w-1.5 h-1.5 bg-white/60 rounded-full blur-[0.5px]" // Increased size and opacity
     style={{
-      left: `${Math.random() * 100}%`,
-      top: `${Math.random() * 100}%`
+      left: `${Math.random() * 100}% `,
+      top: `${Math.random() * 100}% `
     }}
   />
 );
@@ -44,7 +46,12 @@ const Crosshair = ({ x, y, delay }: { x: string, y: string, delay: number }) => 
   </motion.div>
 );
 
-export const Hero: React.FC<{ profileImg: any }> = ({ profileImg }) => {
+interface HeroProps {
+  profileImg: any;
+}
+
+export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
+  const { colors } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -252,7 +259,8 @@ export const Hero: React.FC<{ profileImg: any }> = ({ profileImg }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.5 }}
-          className="max-w-xl text-lg md:text-xl font-light text-blue-100 mb-12 leading-relaxed border-l-2 border-white/30 pl-6 relative z-10"
+          className="max-w-xl text-lg md:text-xl font-light mb-12 leading-relaxed border-l-2 border-white/30 pl-6 relative z-10"
+          style={{ color: colors.textPrimary }}
         >
           A full-stack engineer with a passion for blending <span className="font-hand text-2xl text-yellow-300 mx-1">design</span>, logic, and narrative into handcrafted user experiences.
         </motion.p>
@@ -268,7 +276,17 @@ export const Hero: React.FC<{ profileImg: any }> = ({ profileImg }) => {
             View Work
             <MoveDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
           </a>
-          <a href={resumePdf} download="Daksh_Lohar_Resume.pdf" className="relative inline-block overflow-hidden px-8 py-3 bg-transparent border-2 border-white/50 text-white/80 font-bold font-mono uppercase tracking-widest hover:bg-white hover:text-blue-900 transition-all group ml-4">
+          <a
+            href={resumePdf}
+            download="Daksh_Lohar_Resume.pdf"
+            className="relative inline-block overflow-hidden px-8 py-3 bg-transparent border-2 border-white/50 text-white/80 font-bold font-mono uppercase tracking-widest hover:bg-white transition-all group ml-4"
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = colors.dark;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'rgba(255, 255, 255, 0.8)';
+            }}
+          >
             <span className="relative z-10">Download Resume</span>
             <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
           </a>

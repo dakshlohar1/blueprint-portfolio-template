@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Note } from '../types';
 import { Pin, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
 
 const INITIAL_NOTES: Note[] = [
     { id: 'n1', content: "Love the blueprint aesthetic. It really blends design and engineering well.", pinned: true, position: { x: 50, y: 150 }, rotation: -2 },
@@ -10,6 +11,7 @@ const INITIAL_NOTES: Note[] = [
 ];
 
 export const Notes: React.FC = () => {
+    const { colors } = useTheme();
     const [notes, setNotes] = useState<Note[]>(() => {
         const savedNotes = localStorage.getItem('blueprint-user-notes');
         return savedNotes ? JSON.parse(savedNotes) : INITIAL_NOTES;
@@ -46,7 +48,7 @@ export const Notes: React.FC = () => {
 
             {/* Input Area */}
             <div className="max-w-2xl mx-auto mb-16 relative z-20">
-                <div className="bg-blueprint-bg/50 backdrop-blur border border-white/30 rounded p-1 flex shadow-blueprint">
+                <div className="bg-blueprint-bg/50 backdrop-blur border rounded p-1 flex shadow-blueprint" style={{ borderColor: `${colors.grid}4d` }}>
                     <input
                         type="text"
                         value={inputValue}
@@ -104,7 +106,8 @@ export const Notes: React.FC = () => {
                                     deleteNote(note.id);
                                 }}
                                 onPointerDown={(e) => e.stopPropagation()}
-                                className="absolute -top-2 -right-2 bg-blue-900 border border-white/20 p-1.5 rounded-full text-white/60 hover:text-red-400 hover:border-red-400 hover:bg-white transition-all opacity-0 group-hover:opacity-100 z-20"
+                                className="absolute -top-2 -right-2 border border-white/20 p-1.5 rounded-full text-white/60 hover:text-red-400 hover:border-red-400 hover:bg-white transition-all opacity-0 group-hover:opacity-100 z-20"
+                                style={{ backgroundColor: colors.dark }}
                                 title="Delete Note"
                             >
                                 <Trash2 className="w-3 h-3" />

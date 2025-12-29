@@ -17,9 +17,9 @@
         extend: {
           colors: {
             blueprint: {
-              bg: '#004ecb', // Classic blueprint blue
-              dark: '#003399',
-              grid: '#3b82f6', // Grid lines
+              bg: 'var(--blueprint-bg, #004ecb)', // CSS variable with fallback
+              dark: 'var(--blueprint-dark, #003399)',
+              grid: 'var(--blueprint-grid, #3b82f6)',
               text: '#ffffff',
               ink: '#e2e8f0',
             }
@@ -41,6 +41,13 @@
     }
   </script>
   <style>
+    /* CSS Variables for theming - defaults set here, updated by ThemeContext */
+    :root {
+      --blueprint-bg: #004ecb;
+      --blueprint-dark: #003399;
+      --blueprint-grid: #3b82f6;
+    }
+
     html {
       scroll-behavior: smooth;
       scroll-snap-type: y mandatory;
@@ -48,7 +55,7 @@
 
     body {
       margin: 0;
-      background-color: #004ecb;
+      background-color: var(--blueprint-bg);
       /* Fallback */
       color: white;
     }
@@ -59,11 +66,11 @@
     }
 
     ::-webkit-scrollbar-track {
-      background: #003399;
+      background: var(--blueprint-dark);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #3b82f6;
+      background: var(--blueprint-grid);
       border: 1px solid white;
     }
 

@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Menu, DraftingCompass, X, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
+
 
 interface NavbarProps {
   showNotes?: boolean;
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (open: boolean) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ showNotes = false }) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuOpen, setIsMobileMenuOpen }) => {
+  const { colors } = useTheme();
   const [activeSection, setActiveSection] = useState('hero');
 
   // Scroll Spy Logic to track active section
@@ -68,8 +72,13 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false }) => {
               href={`#${item.id}`}
               className={`transition-colors hover:underline decoration-dashed underline-offset-4 ${item.isSpecial
                 ? 'text-yellow-300 hover:text-yellow-200 animate-pulse font-bold'
-                : 'hover:text-cyan-300'
-                } ${activeSection === item.id ? 'text-cyan-300 underline' : ''}`}
+                : ''
+                } ${activeSection === item.id ? 'underline' : ''}`}
+              style={!item.isSpecial ? {
+                color: activeSection === item.id ? colors.textPrimary : 'white',
+              } : {}}
+              onMouseEnter={(e) => !item.isSpecial && (e.currentTarget.style.color = colors.textPrimary)}
+              onMouseLeave={(e) => !item.isSpecial && activeSection !== item.id && (e.currentTarget.style.color = 'white')}
             >
               {item.label}
             </a>
@@ -89,17 +98,45 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false }) => {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 border border-white/30 rounded-full hover:bg-white hover:text-blue-900 hover:border-white transition-all duration-300 group relative"
+                className="p-3 border border-white/30 rounded-full hover:bg-white hover:border-white transition-all duration-300 group relative"
+                style={{
+                  color: 'white'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'white';
+                  e.currentTarget.style.color = colors.dark;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = 'white';
+                }}
                 aria-label={label}
               >
                 <Icon className="w-3 h-3" />
-                <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 text-xs font-mono bg-white text-blue-900 px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                <span
+                  className="absolute top-full mt-2 left-1/2 -translate-x-1/2 text-xs font-mono bg-white px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+                  style={{ color: colors.dark }}
+                >
                   {label}
                 </span>
               </a>
             ))}
           </div>
-          <a href="#contact" className="hidden md:block px-4 py-2 border border-white text-sm font-bold hover:bg-white hover:text-blue-900 transition-all shadow-blueprint active:translate-y-1 active:shadow-none">
+          <a
+            href="#contact"
+            className="hidden md:block px-4 py-2 border border-white text-sm font-bold hover:bg-white transition-all shadow-blueprint active:translate-y-1 active:shadow-none"
+            style={{
+              color: 'white'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = 'white';
+              e.currentTarget.style.color = colors.dark;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = 'white';
+            }}
+          >
             GET IN TOUCH
           </a>
 
@@ -162,22 +199,29 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false }) => {
                     href={`#${item.id}`}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`relative group flex items-center justify-between p-4 rounded-lg border transition-all duration-200 ${activeSection === item.id
-                      ? 'bg-white border-blue-500 shadow-md translate-x-2'
+                      ? 'bg-white shadow-md translate-x-2'
                       : 'bg-white/40 border-slate-200 hover:bg-white hover:border-slate-300'
                       }`}
+                    style={activeSection === item.id ? {
+                      borderColor: colors.grid
+                    } : {}}
                   >
                     <div className="flex items-center gap-3">
                       {/* Active Dot indicator */}
-                      <div className={`w-2 h-2 rounded-full transition-colors ${activeSection === item.id ? 'bg-blue-600 animate-pulse' : 'bg-slate-300'
-                        }`} />
+                      <div
+                        className={`w-2 h-2 rounded-full transition-colors ${activeSection === item.id ? 'animate-pulse' : 'bg-slate-300'}`}
+                        style={activeSection === item.id ? { backgroundColor: colors.grid } : {}}
+                      />
 
-                      <span className={`font-mono text-lg tracking-wide ${activeSection === item.id ? 'text-blue-900 font-bold' : 'text-slate-600'
-                        } ${item.isSpecial ? 'text-yellow-600' : ''}`}>
+                      <span
+                        className={`font-mono text-lg tracking-wide ${activeSection === item.id ? 'font-bold' : 'text-slate-600'} ${item.isSpecial ? 'text-yellow-600' : ''}`}
+                        style={activeSection === item.id && !item.isSpecial ? { color: colors.dark } : {}}
+                      >
                         {item.label}
                       </span>
                     </div>
 
-                    {activeSection === item.id && <ChevronRight className="w-4 h-4 text-blue-500" />}
+                    {activeSection === item.id && <ChevronRight className="w-4 h-4" style={{ color: colors.grid }} />}
                   </a>
                 ))}
 
@@ -185,10 +229,14 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false }) => {
                 <a
                   href="#contact"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`mt-4 relative group flex items-center justify-between p-4 rounded-lg border transition-all duration-200 ${activeSection === 'contact'
-                    ? 'bg-blue-600 border-blue-600 shadow-lg text-white translate-x-2'
-                    : 'bg-blue-900 text-white border-blue-900 hover:bg-blue-800'
+                  className={`mt-4 relative group flex items-center justify-between p-4 rounded-lg border transition-all duration-200 text-white ${activeSection === 'contact'
+                    ? 'shadow-lg translate-x-2'
+                    : 'hover:opacity-90'
                     }`}
+                  style={{
+                    backgroundColor: activeSection === 'contact' ? colors.grid : colors.dark,
+                    borderColor: activeSection === 'contact' ? colors.grid : colors.dark
+                  }}
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-2 h-2 rounded-full ${activeSection === 'contact' ? 'bg-white animate-pulse' : 'bg-white/50'

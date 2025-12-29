@@ -68,7 +68,7 @@ export const BlueprintGrid: React.FC = () => {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       {/* Main color background */}
-      <div className="absolute inset-0 bg-[#004ecb]" />
+      <div className="absolute inset-0 bg-blueprint-bg" />
 
       {/* Small Grid */}
       <div className="absolute inset-0 bg-blueprint-grid bg-[size:20px_20px] opacity-30" />
@@ -78,7 +78,7 @@ export const BlueprintGrid: React.FC = () => {
 
       {/* Vignette/Texture overlay to give paper feel */}
       <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 contrast-150 brightness-100" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#003399] opacity-60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-blueprint-dark opacity-60" />
 
       {/* Top Ruler (Static horizontal) - Added pl-8 to avoid overlap with left ruler */}
       <div className="absolute top-0 left-0 w-full h-8 border-b border-white/20 flex justify-between px-4 items-end text-[10px] font-mono text-white/50 pl-4 md:pl-10">

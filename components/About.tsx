@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useTheme } from '../contexts/ThemeContext';
 import { CircledText } from './CircledText';
 
 
 export const About: React.FC = () => {
+   const { colors } = useTheme();
    const [showMicro, setShowMicro] = useState(false);
    const [showEmpathy, setShowEmpathy] = useState(false);
 
@@ -28,7 +30,7 @@ export const About: React.FC = () => {
                <h3 className="text-2xl font-bold font-display mb-4 flex items-center gap-3">
                   Full Stack & AI Focused
                </h3>
-               <p className="text-blue-100/80 leading-relaxed font-sans">
+               <p className="leading-relaxed font-sans" style={{ color: colors.textPrimary }}>
                   Strong background in frontend development, backend APIs, microservices architecture, and database systems (SQL, NoSQL, Vector). Experienced in Retrieval-Augmented Generation (RAG) pipelines, Generative AI integrations, CI/CD automation, and production infrastructure monitoring.
                </p>
             </div>
@@ -40,7 +42,7 @@ export const About: React.FC = () => {
                <h3 className="text-2xl font-bold font-display mb-4">
                   System Design & Performance
                </h3>
-               <p className="text-blue-100/80 leading-relaxed font-sans">
+               <p className="leading-relaxed font-sans" style={{ color: colors.textPrimary }}>
                   Focused on system design, performance optimization, and reliable, scalable delivery. Whether it's architecting <span
                      className="relative cursor-pointer underline decoration-white/30 hover:decoration-white transition-all"
                      onClick={() => setShowMicro(!showMicro)}

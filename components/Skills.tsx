@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { SKILLS } from '../constants';
 import * as Icons from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
 
 export const Skills: React.FC = () => {
+  const { colors } = useTheme();
   const [secretIndex, setSecretIndex] = useState<number | null>(null);
 
   React.useEffect(() => {
@@ -58,16 +60,41 @@ export const Skills: React.FC = () => {
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-8 bg-white/20 backdrop-blur-sm rotate-1 border-l border-r border-white/10" style={{ clipPath: 'polygon(0% 10%, 5% 0%, 95% 0%, 100% 10%, 100% 90%, 95% 100%, 5% 100%, 0% 90%)' }}></div>
 
                 {/* Sticker Content */}
-                <div className="absolute inset-2 border border-blue-100 flex flex-col items-center justify-center p-2">
-                  <div className="absolute top-1 right-1 text-[8px] text-blue-900/40 font-mono">CHIP-{i + 1}</div>
+                <div
+                  className="absolute inset-2 border flex flex-col items-center justify-center p-2"
+                  style={{ borderColor: colors.grid }}
+                >
+                  <div
+                    className="absolute top-1 right-1 text-[8px] font-mono"
+                    style={{ color: `${colors.dark}66` }}
+                  >
+                    CHIP-{i + 1}
+                  </div>
 
-                  <IconComponent strokeWidth={1.5} className="w-10 h-10 text-blue-900 mb-3" />
+                  <IconComponent
+                    strokeWidth={1.5}
+                    className="w-10 h-10 mb-3"
+                    style={{ color: colors.dark }}
+                  />
 
-                  <span className="text-blue-900 font-bold font-display text-sm uppercase tracking-tight">{skill.name}</span>
+                  <span
+                    className="font-bold font-display text-sm uppercase tracking-tight"
+                    style={{ color: colors.dark }}
+                  >
+                    {skill.name}
+                  </span>
 
                   {/* Blueprint lines inside sticker */}
-                  <div className="absolute bottom-2 left-2 right-2 h-px bg-blue-200" />
-                  <div className="absolute bottom-1 right-2 text-[6px] text-blue-400 font-mono">{skill.category.toUpperCase()}</div>
+                  <div
+                    className="absolute bottom-2 left-2 right-2 h-px"
+                    style={{ backgroundColor: colors.grid }}
+                  />
+                  <div
+                    className="absolute bottom-1 right-2 text-[6px] font-mono"
+                    style={{ color: colors.grid }}
+                  >
+                    {skill.category.toUpperCase()}
+                  </div>
                 </div>
               </motion.div>
             </div>
