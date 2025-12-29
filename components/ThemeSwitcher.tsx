@@ -3,7 +3,7 @@ import { useTheme, THEME_COLORS, THEME_NAMES, ThemeColor } from '../contexts/The
 import { motion } from 'framer-motion';
 
 export const ThemeSwitcher: React.FC = () => {
-    const { theme, setTheme } = useTheme();
+    const { theme, setTheme, mode, toggleMode } = useTheme();
     const colors = THEME_COLORS[theme];
     const [isHovered, setIsHovered] = React.useState(false);
 
@@ -14,6 +14,10 @@ export const ThemeSwitcher: React.FC = () => {
     const radius = size / 2; // Radius of semi-circle
     const centerX = radius; // Center is now at radius distance from left
     const centerY = size / 2; // Vertical center
+
+    // Get current mode colors
+    const currentBg = mode === 'light' ? colors.bg : colors.bgDark;
+    const currentGrid = mode === 'light' ? colors.grid : colors.accentDark;
 
     return (
         <motion.div
@@ -30,7 +34,7 @@ export const ThemeSwitcher: React.FC = () => {
                 damping: 30
             }}
         >
-            <div className="relative" style={{ width: `${radius + 20}px`, height: `${size}px` }}>
+            <div className="relative" style={{ width: `${radius + 20}px`, height: `${size + 40}px` }}>
 
                 {/* SVG Semi-Circle */}
                 <svg
@@ -43,7 +47,7 @@ export const ThemeSwitcher: React.FC = () => {
                     <path
                         d={`M ${radius} 0 A ${radius} ${radius} 0 0 0 ${radius} ${size}`}
                         fill="none"
-                        stroke={colors.grid}
+                        stroke={currentGrid}
                         strokeWidth="3"
                         opacity="0.6"
                     />
@@ -51,7 +55,7 @@ export const ThemeSwitcher: React.FC = () => {
                     {/* Filled center semi-circle - facing left */}
                     <motion.path
                         d={`M ${radius + 20} ${centerY - 30} A 30 30 0 0 0 ${radius + 20} ${centerY + 30}`}
-                        fill={colors.grid}
+                        fill={currentGrid}
                         stroke="white"
                         strokeWidth="3"
                         animate={{
@@ -61,10 +65,10 @@ export const ThemeSwitcher: React.FC = () => {
                             duration: 0.4,
                             ease: "easeInOut"
                         }}
-                        key={theme}
+                        key={theme + mode}
                         style={{
                             transformOrigin: `${radius + 20}px ${centerY}px`,
-                            filter: `drop-shadow(0 0 10px ${colors.grid})`
+                            filter: `drop-shadow(0 0 10px ${currentGrid})`
                         }}
                     />
                 </svg>
@@ -80,7 +84,8 @@ export const ThemeSwitcher: React.FC = () => {
                     const x = centerX - Math.cos(angle) * (radius); // Subtract to go left
                     const y = centerY + Math.sin(angle) * (radius);
 
-                    const isActive = themeOption === theme
+                    const isActive = themeOption === theme;
+                    const optionColor = mode === 'light' ? THEME_COLORS[themeOption].grid : THEME_COLORS[themeOption].accentDark;
 
                     return (
                         <div
@@ -102,9 +107,9 @@ export const ThemeSwitcher: React.FC = () => {
                                     className={`w-7 h-7 rounded-full transition-all duration-300 ${isActive ? 'ring-2 ring-white ring-offset-2' : ''
                                         }`}
                                     style={{
-                                        backgroundColor: THEME_COLORS[themeOption].grid,
+                                        backgroundColor: optionColor,
                                         boxShadow: isActive
-                                            ? `0 0 20px ${THEME_COLORS[themeOption].grid}`
+                                            ? `0 0 20px ${optionColor}`
                                             : '0 2px 4px rgba(0,0,0,0.2)',
                                         border: `2px solid ${isActive ? 'white' : 'rgba(255,255,255,0.5)'}`
                                     }}
@@ -114,7 +119,7 @@ export const ThemeSwitcher: React.FC = () => {
                                 <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
                                     <div
                                         className="px-3 py-1.5 rounded text-xs font-mono font-bold text-white shadow-lg"
-                                        style={{ backgroundColor: colors.dark }}
+                                        style={{ backgroundColor: mode === 'light' ? colors.dark : colors.surfaceDark }}
                                     >
                                         {THEME_NAMES[themeOption]}
                                     </div>
@@ -133,7 +138,7 @@ export const ThemeSwitcher: React.FC = () => {
                         width: `${radius - 20}px`,
                         height: '2px',
                         transformOrigin: 'right center',
-                        backgroundColor: colors.grid,
+                        backgroundColor: currentGrid,
                         opacity: 0.8
                     }}
                     animate={{
@@ -147,15 +152,63 @@ export const ThemeSwitcher: React.FC = () => {
                 >
                     <div
                         className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
-                        style={{ backgroundColor: colors.grid, boxShadow: `0 0 8px ${colors.grid}` }}
+                        style={{ backgroundColor: currentGrid, boxShadow: `0 0 8px ${currentGrid}` }}
                     />
                 </motion.div>
 
+                {/* Dark/Light Mode Toggle Button */}
+                <motion.button
+                    onClick={toggleMode}
+                    className="absolute right-2 group"
+                    style={{ top: `${size + 5}px` }}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                >
+                    <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300"
+                        style={{
+                            backgroundColor: currentGrid,
+                            boxShadow: `0 0 15px ${currentGrid}`,
+                            border: '2px solid white'
+                        }}
+                    >
+                        {mode === 'light' ? (
+                            // Sun icon
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                                <circle cx="12" cy="12" r="5" />
+                                <line x1="12" y1="1" x2="12" y2="3" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                                <line x1="12" y1="21" x2="12" y2="23" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                                <line x1="1" y1="12" x2="3" y2="12" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                                <line x1="21" y1="12" x2="23" y2="12" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="white" strokeWidth="2" strokeLinecap="round" />
+                            </svg>
+                        ) : (
+                            // Moon icon
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                            </svg>
+                        )}
+                    </div>
+
+                    {/* Tooltip for mode toggle */}
+                    <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-10">
+                        <div
+                            className="px-3 py-1.5 rounded text-xs font-mono font-bold text-white shadow-lg"
+                            style={{ backgroundColor: mode === 'light' ? colors.dark : colors.surfaceDark }}
+                        >
+                            {mode === 'light' ? 'Dark Mode' : 'Light Mode'}
+                        </div>
+                    </div>
+                </motion.button>
+
                 {/* Label */}
-                <div className="absolute right-2 -bottom-6 text-right">
+                <div className="absolute right-2 text-right" style={{ top: `${size + 40}px` }}>
                     <div
                         className="text-[9px] font-mono tracking-widest opacity-70 font-bold"
-                        style={{ color: colors.grid }}
+                        style={{ color: currentGrid }}
                     >
                         THEME
                     </div>
