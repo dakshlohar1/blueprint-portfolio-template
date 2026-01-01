@@ -93,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuO
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8 font-mono text-sm uppercase tracking-wider">
+        <div className="hidden lg:flex items-center gap-8 font-mono text-sm uppercase tracking-wider">
           {navItems.map(item => (
             <a
               key={item.id}
@@ -115,7 +115,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuO
 
         {/* Desktop Actions */}
         <div className="flex items-center gap-4 relative z-50">
-          <div className="flex justify-center gap-6 ">
+          <div className="hidden lg:flex justify-center gap-6 ">
             {[
               { Icon: Github, href: "https://github.com/dakshlohar1", label: "GitHub" },
               { Icon: Linkedin, href: "https://www.linkedin.com/in/daksh-lohar-7001a31b6", label: "LinkedIn" },
@@ -152,7 +152,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuO
           </div>
           <a
             href="#contact"
-            className="hidden md:block px-4 py-2 border border-white text-sm font-bold hover:bg-white transition-all shadow-blueprint active:translate-y-1 active:shadow-none"
+            className="hidden lg:block px-4 py-2 border border-white text-sm font-bold hover:bg-white transition-all shadow-blueprint active:translate-y-1 active:shadow-none"
             style={{
               color: 'white'
             }}
@@ -170,7 +170,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuO
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden p-1 active:scale-95 transition-transform"
+            className="lg:hidden p-1 active:scale-95 transition-transform"
             onClick={() => setIsMobileMenuOpen(true)}
           >
             <Menu className="w-6 h-6" />
@@ -188,7 +188,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuO
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 bg-blue-900/80 backdrop-blur-sm z-[60] md:hidden"
+              className="fixed inset-0 bg-blue-900/80 backdrop-blur-sm z-[60] lg:hidden"
             />
 
             {/* Sidebar */}
@@ -197,7 +197,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuO
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-[#f0f4f8] z-[70] shadow-2xl md:hidden flex flex-col border-l border-white/50"
+              className="fixed top-0 right-0 bottom-0 w-[85%] max-w-sm bg-[#f0f4f8] z-[70] shadow-2xl lg:hidden flex flex-col border-l border-white/50"
               style={{
                 // White blueprint aesthetic: subtle gray grid
                 backgroundImage: 'linear-gradient(#e5e9f0 1px, transparent 1px), linear-gradient(90deg, #e5e9f0 1px, transparent 1px)',

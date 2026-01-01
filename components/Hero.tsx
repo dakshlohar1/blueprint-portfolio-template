@@ -83,7 +83,7 @@ export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
   };
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto min-h-[90vh] flex flex-col md:flex-row items-center justify-between px-6 md:px-0 py-12 md:py-0 gap-12">
+    <div className="relative w-full max-w-7xl mx-auto min-h-[90vh] flex flex-col lg:flex-row items-center justify-between px-6 lg:px-0 py-12 lg:py-0 gap-12">
 
       {/* SVG Definitions */}
       <svg className="absolute w-0 h-0">
@@ -169,9 +169,9 @@ export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
         </div>
       )}
 
-      {/* LEFT COLUMN: Portrait (Now Swapped to Right) - Hidden on Mobile */}
-      <div className="hidden md:flex w-full md:w-5/12 relative justify-center md:justify-center order-2 md:order-2 mt-12 md:mt-0">
-        <div className="relative w-72 h-72 md:w-[450px] md:h-[550px] group">
+      {/* LEFT COLUMN: Portrait (Now Swapped to Right) - Hidden on Mobile, Visible on LG+ */}
+      <div className="hidden lg:flex w-full lg:w-5/12 relative justify-center lg:justify-center order-2 lg:order-2 mt-12 lg:mt-0">
+        <div className="relative w-72 h-72 md:w-[350px] md:h-[450px] lg:w-[450px] lg:h-[550px] group">
           {/* Decorative Compass behind portrait */}
           <div className="absolute -top-12 -right-12 opacity-30 animate-[spin_60s_linear_infinite]">
             <Compass className="w-32 h-32 stroke-white stroke-[0.5]" />
@@ -216,12 +216,45 @@ export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
       </div>
 
       {/* RIGHT COLUMN: Content (Now Swapped to Left) */}
-      <div className="w-full md:w-7/12 flex flex-col items-center md:items-start text-center md:text-left order-1 md:order-1 relative z-20">
-        {/* Compass moved to background/corner or removed to declutter, keeping small one up top right maybe */}
-        <div className="absolute -top-32 right-0 opacity-20 hidden md:block">
+      <div className="w-full lg:w-7/12 flex flex-col items-center lg:items-start text-center lg:text-left order-1 lg:order-1 relative z-20">
+        <div className="absolute -top-32 right-0 opacity-20 hidden lg:block">
           <svg width="200" height="200" viewBox="0 0 100 100" className="stroke-white stroke-[0.5] fill-none animate-[spin_40s_linear_infinite]">
             <circle cx="50" cy="50" r="45" strokeDasharray="4 4" />
             <path d="M50 0 L50 100 M0 50 L100 50" />
+          </svg>
+        </div>
+
+        {/* Mobile/Tablet Decorative Semi-Circle (Replaces Portrait interest) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] -z-10 lg:hidden opacity-30 pointer-events-none">
+          <svg viewBox="0 0 400 400" className="w-full h-full animate-[spin_20s_linear_infinite]">
+            <defs>
+              <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="white" stopOpacity="0.1" />
+                <stop offset="50%" stopColor="white" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="white" stopOpacity="0.1" />
+              </linearGradient>
+            </defs>
+            {/* Outer roughness */}
+            <motion.path
+              d="M 50, 200 C 50, 100 100, 50 200, 50 C 300, 50 350, 100 350, 200"
+              stroke="url(#circleGradient)"
+              strokeWidth="2"
+              fill="none"
+              strokeDasharray="10 5"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 3, ease: "easeInOut", delay: 0.5 }}
+            />
+            {/* Inner loop */}
+            <motion.path
+              d="M 80, 200 C 80, 130 130, 80 200, 80 C 270, 80 320, 130 320, 200"
+              stroke="white"
+              strokeWidth="1"
+              fill="none"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2.5, ease: "easeInOut", delay: 1 }}
+            />
           </svg>
         </div>
 
@@ -229,7 +262,7 @@ export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="text-6xl md:text-8xl font-display font-bold mb-8 tracking-tighter relative z-10 leading-[0.9]"
+          className="text-6xl md:text-7xl lg:text-8xl font-display font-bold mb-8 tracking-tighter relative z-10 leading-[0.9]"
         >
           <motion.span
             variants={textVariants}
@@ -241,7 +274,7 @@ export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
 
           <motion.span
             variants={textVariants}
-            className="block text-white relative left-4 md:left-12"
+            className="block text-white relative lg:left-12"
           >
             THOUGHTFUL
           </motion.span>
