@@ -14,6 +14,29 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuOpen, setIsMobileMenuOpen }) => {
   const { colors } = useTheme();
   const [activeSection, setActiveSection] = useState('hero');
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = React.useRef(0);
+
+  // New Effect: Handle Navbar Visibility on Scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Determine direction and visibility
+      if (currentScrollY < lastScrollY.current || currentScrollY < 50) {
+        // Scrolling UP or at the top -> SHOW
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
+        // Scrolling DOWN and past the top -> HIDE
+        setIsVisible(false);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Scroll Spy Logic to track active section
   useEffect(() => {
@@ -58,7 +81,12 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuO
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 b backdrop-blur-sm border-b border-white/20">
+      <motion.nav
+        initial={{ y: 0 }}
+        animate={{ y: isVisible ? 0 : '-100%' }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 b backdrop-blur-sm border-b border-white/20"
+      >
         <div className="flex items-center gap-2 relative z-50">
           <DraftingCompass className="w-6 h-6 text-white" />
           <span className="text-lg font-bold font-display tracking-widest">DAKSH LOHAR</span>
@@ -148,7 +176,7 @@ export const Navbar: React.FC<NavbarProps> = ({ showNotes = false, isMobileMenuO
             <Menu className="w-6 h-6" />
           </button>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Mobile Sidebar Overlay */}
       <AnimatePresence>
