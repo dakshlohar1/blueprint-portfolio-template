@@ -10,6 +10,7 @@ import { Notes } from './components/Notes';
 import { Experience } from './components/Experience';
 import { CustomCursor } from './components/CustomCursor';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
+import { BackToTop } from './components/BackToTop';
 import { ThemeProvider } from './contexts/ThemeContext';
 
 import profileImg from './assets/images/profile.png';
@@ -85,7 +86,12 @@ const App: React.FC = () => {
         {!isLoading && <CustomCursor />}
 
         {/* Floating Theme Switcher - Hidden when mobile menu or project modal is open */}
-        {!isLoading && !isMobileMenuOpen && !selectedProject && <ThemeSwitcher />}
+        {!isLoading && !isMobileMenuOpen && !selectedProject && (
+          <>
+            <ThemeSwitcher />
+            <BackToTop />
+          </>
+        )}
 
         {/* Background Layer */}
         {!isLoading && <BlueprintGrid />}
