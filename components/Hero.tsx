@@ -171,7 +171,7 @@ export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
 
       {/* LEFT COLUMN: Portrait (Now Swapped to Right) - Hidden on Mobile, Visible on LG+ */}
       <div className="hidden lg:flex w-full lg:w-5/12 relative justify-center lg:justify-center order-2 lg:order-2 mt-12 lg:mt-0">
-        <div className="relative w-72 h-72 md:w-[350px] md:h-[450px] lg:w-[450px] lg:h-[550px] group">
+        <div className="relative w-72 h-72 md:w-[350px] md:h-[450px] lg:w-[550px] lg:h-[650px] group">
           {/* Decorative Compass behind portrait */}
           <div className="absolute -top-12 -right-12 opacity-30 animate-[spin_60s_linear_infinite]">
             <Compass className="w-32 h-32 stroke-white stroke-[0.5]" />
