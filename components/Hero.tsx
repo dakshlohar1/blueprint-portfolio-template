@@ -269,7 +269,7 @@ export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 2 }}
-          className="hidden md:flex gap-4"
+          className="flex flex-col sm:flex-row gap-4 items-center"
         >
 
           <a href="#projects" className="px-6 py-3 bg-white/5 hover:bg-white/10 transition-colors duration-300 font-mono text-sm uppercase tracking-widest flex items-center gap-2 group">
@@ -279,7 +279,7 @@ export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
           <a
             href={resumePdf}
             download="Daksh_Lohar_Resume.pdf"
-            className="relative inline-block overflow-hidden px-8 py-3 bg-transparent border-2 border-white/50 text-white/80 font-bold font-mono uppercase tracking-widest hover:bg-white transition-all group ml-4"
+            className="relative inline-block overflow-hidden px-8 py-3 bg-transparent border-2 border-white/50 text-white/80 font-bold font-mono uppercase tracking-widest hover:bg-white transition-all group"
             onMouseEnter={(e) => {
               e.currentTarget.style.color = colors.dark;
             }}
@@ -295,6 +295,6 @@ export const Hero: React.FC<HeroProps> = ({ profileImg }) => {
         </motion.div>
       </div>
 
-    </div>
+    </div >
   );
 };
