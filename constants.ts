@@ -75,9 +75,20 @@ export const SKILLS: Skill[] = [
 export const EXPERIENCE: Experience[] = [
   {
     id: 'exp1',
+    role: 'Technical Lead',
+    company: 'Ernst & Young Global Delivery Services',
+    period: 'Feb 2026 — current',
+    description: [
+      "Leading the full-scale development of an enterprise-grade AI assistant from initial concept through deployment.",
+      "Architecting the AI assistant using LangChain, LangGraph, vLLM, and Vector DBs to deliver robust and intelligent automation."
+    ],
+    technologies: ['Python', 'Kubernetes', 'AI/LLM', "LangChain", "LangGraph", "vLLM", "AWS", "Vector DBs"]
+  },
+  {
+    id: 'exp2',
     role: 'Software Engineer',
     company: 'Wisflux Pvt. Ltd.',
-    period: 'Feb 2022 — Present',
+    period: 'Feb 2022 — Jan 2026',
     description: [
       'Led end-to-end development of enterprise web applications using React, NestJS microservices, and Python servers.',
       'Implemented automated on-the-fly infrastructure creation CI pipeline using ARC (action-runner-controllers).',
@@ -86,7 +97,7 @@ export const EXPERIENCE: Experience[] = [
     technologies: ['React', 'NestJS', 'Python', 'Kubernetes', 'AI/LLM']
   },
   {
-    id: 'exp2',
+    id: 'exp3',
     role: 'Full Stack Developer',
     company: 'Hivado Pvt. Ltd.',
     period: 'July 2021 — Jan 2022',

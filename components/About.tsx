@@ -6,7 +6,6 @@ import { CircledText } from './CircledText';
 export const About: React.FC = () => {
    const { colors } = useTheme();
    const [showMicro, setShowMicro] = useState(false);
-   const [showEmpathy, setShowEmpathy] = useState(false);
 
    return (
       <div className="max-w-4xl mx-auto relative px-6 md:px-0">
@@ -17,7 +16,7 @@ export const About: React.FC = () => {
             </h2>
 
             <p className="text-xl font-light leading-relaxed max-w-3xl mx-auto relative z-10">
-               Software Engineer with over <CircledText className="mx-1 group pt-1">5 years</CircledText> of experience building and scaling web and mobile applications, AI agents, and data-driven workflows.
+               Software Engineer with over <CircledText className="mx-1 group pt-1">5+ years</CircledText> of experience building and scaling web and mobile applications, AI agents, and data-driven workflows.
             </p>
 
          </div>
